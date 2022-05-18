@@ -1,0 +1,53 @@
+
+{% extends 'layout.html' %}
+
+{% load static %} 
+{% block css_files %} 
+<link rel="stylesheet" href="{% static "blog/post-detail.css" %}"> 
+{% endblock %} 
+
+
+{% block content %}
+
+{% if comment_form.errors %}
+<div id="alert">
+    <h2>Please fill out all fields in the comment form</h2>
+</div>
+{% endif %}
+
+<section id="summary">
+    <h2>{{ post.title }}</h2>
+    <article>
+        <img src="{{ post.image.url }}" />
+        <address>{{ post.author }} </address>
+        <div> Updated on <time>{{ post.date }}</time></div>
+    </article>
+</section>
+
+<main>
+{{ post.content|linebreaks }}
+</main>
+
+<div>
+    <div id="comments-block">
+        <h2>Your Comment</h2>
+        <form action="{% url 'one_post' post.slug %}" method="POST">
+        {% csrf_token %}
+        {% for form_field in comment_form %}
+            <div class="form-control">
+            {{ form_field.label_tag }}
+            {{ form_field }}
+            {{ form_field.errors }}
+        </div>
+    {% endfor %}
+<button type="submit">Publish Comment</button>
+    </form>
+</div>
+<div id="all-comments">
+        {% for single_comments in comments %}
+        <div id="comments-block">
+        <h3>User: {{ single_comments.user_name }}</h3>
+        <p>{{ single_comments.text }}</p>
+        </div>
+    {% endfor %}
+{% endblock %} 

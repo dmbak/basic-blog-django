@@ -1,0 +1,26 @@
+{% extends 'layout.html' %} {% load static %} {% block css_files %} <link
+rel="stylesheet" href="{% static "blog/index.css" %}"> <link rel="stylesheet"
+href="{% static "blog/post.css" %}"> {% endblock %} {% block content %}
+
+<section id="welcome">
+  <header>
+    <h2>Blog</h2>
+  </header>
+  <p>{% lorem 2 b random %}</p>
+</section>
+
+<section id="latest-posts">
+  <h2>Latest Posts</h2>
+  <ul>
+    {% for post in posts %}
+    {% include "blog/includes/post.html" %}
+    {% endfor %}
+  </ul>
+
+</section>
+
+<section id="about">
+  <h2>About</h2>
+  <p>{% lorem 2 b random %}</p>
+</section>
+{% endblock %}
