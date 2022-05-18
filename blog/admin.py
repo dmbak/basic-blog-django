@@ -12,7 +12,7 @@ class CommentAdmin(admin.ModelAdmin):
     list_display = ("user_name", "user_email", "text")
 
 
-# Register your models here.
+# Register your models here
 admin.site.register(Author)
 admin.site.register(Post, PostAdmin)
 admin.site.register(Comment, CommentAdmin)
